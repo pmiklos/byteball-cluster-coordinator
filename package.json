@@ -1,0 +1,17 @@
+{
+  "name": "byteball-cluster-coordinator",
+  "version": "0.0.1",
+  "description": "Simple interface to run Byteball dApps",
+  "main": "coordinator.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Peter Miklos",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "byteball-cluster": "github:pmiklos/byteball-cluster",
+    "express": "^4.16.3",
+    "headless-byteball": "github:byteball/headless-byteball#npm"
+  }
+}
