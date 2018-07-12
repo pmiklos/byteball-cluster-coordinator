@@ -2,27 +2,71 @@
 <html lang="en">
 
 <head>
-    <title>Byteball dApp Runner</title>
-    <meta name="description" content="Simple interface to run Byteball dApps." />
+    <title>Byteball DApp Runner</title>
+    <meta name="description" content="Simple interface to run Byteball DApps." />
     <meta name="keywords" content="crypto, crypto currency, byteball, dag, dapp" />
+    <meta name="fragment" content="!" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/prism.css">
+
 </head>
 
-<body class="bg-light m-4">
+<body class="bg-light m-4" ng-controller="DappController">
     <div class="row">
-        <div class="col-lg-12">
-            <form action="/api/dapp" method="POST">
-                <div class="form-group">
-                    <label for="unit">dApp unit hash</label>
-                    <input type="text" class="form-control" id="unit" name="unit" aria-describedby="unitHelp" placeholder="Enter unit hash">
-                    <small id="unitHelp" class="form-text text-muted">The Byteball unit hash of the dapp code to execute</small>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-featured"></div>
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="unit">DApp unit hash</label>
+                            <input id="unit" type="text" class="form-control" ng-model="unit" aria-describedby="unitHelp" placeholder="Enter unit hash">
+                            <small id="unitHelp" class="form-text text-muted">The Byteball unit hash of the DApp code to execute</small>
+                        </div>
+                        <button type="submit" ng-click="run()" class="btn btn-primary" ng-disabled="running || !unit">Run</button>
+                        <button type="submit" ng-click="getDappSource()" class="btn" ng-disabled="!unit">Source</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Run</button>
-            </form>
+                <div class="card-body bg-dark text-white" ng-show="result">
+                    <div class="card-text">{{ result }}</div>
+                </div>
+                <div class="card-body bg-danger text-white" ng-show="error">
+                    <div class="card-text">{{ error }}</div>
+                </div>
+                <div class="card-body bg-ligh" ng-show="source">
+                    <div class="card-title">Source:</div>
+                    <div class="card-text">
+                        <pre><code>{{ source }}</code></pre>
+                    </div>
+                </div>
+                <div class="card-footer" ng-show="unit">
+                    API: <a href="{{ getDappUrl() }}" target="_blank">{{ getDappUrl() }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">Examples</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Answer to the Ultimate Question of Life, the Universe, and Everything
+                    </p>
+                    <a ng-class="card-link" ng-href="#" ng-click="unit='wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng='">wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng=</a>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script src="/lib/prism.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="/app/app.js"></script>
+    <script src="/app/services/DappService.js"></script>
+    <script src="/app/controllers/DappController.js"></script>
+
 </body>
 
 </html>
