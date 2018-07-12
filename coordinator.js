@@ -14,6 +14,7 @@ const service = require("./server/service.js");
 
 const webapp = express();
 const httpPort = process.env.PORT || 8080;
+const httpHost = process.env.IP || "127.0.0.1";
 const coordinator = cluster.Coordinator;
 const coordinatorService = service(coordinator);
 const coordinatorChat = conversation(coordinatorService);
@@ -39,7 +40,7 @@ webapp.use('/api', coordinatorRestApi);
 repository.insertPairingSecret('worker', () => {});
 
 eventBus.once('headless_wallet_ready', function() {
-    webapp.listen(httpPort);
+    webapp.listen(httpPort, httpHost);
 });
 
 
