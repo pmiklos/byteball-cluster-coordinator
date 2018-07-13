@@ -56,9 +56,9 @@
                     <a ng-class="card-link" ng-href="#" ng-click="unit='wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng='">wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng=</a>
                 </div>
             </div>
-            <div class="card my-4" ng-show="nodeInfo">
+            <div class="card my-4">
                 <div class="card-header">Node Information</div>
-                <div class="card-body">
+                <div class="card-body" ng-show="nodeInfo">
                     <p class="card-text">
                         <form>
                             <dl class="row">
@@ -77,11 +77,14 @@
 
                             <label for="workerPairingCode">Pairing code for worker nodes:</label>
                             <input type="text" id="workerPairingCode" class="form-control" readonly value="{{ nodeInfo.workerPairingCode }}" />
-
                         </form>
                     </p>
+                    <p class="card-text">
+                        Worker nodes are Byteball <a href="https://github.com/pmiklos/byteball-cluster-dapp-runner" target="_blank">DApp Runner</a>
+                        chat bots that connect to a <a href="https://github.com/pmiklos/byteball-cluster-coordinator" target="_blank">DApp Coordinator</a>
+                        bot using the above pairing code.
+                    </p>
                 </div>
-
             </div>
         </div>
     </div>
