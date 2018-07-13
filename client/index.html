@@ -56,6 +56,33 @@
                     <a ng-class="card-link" ng-href="#" ng-click="unit='wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng='">wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng=</a>
                 </div>
             </div>
+            <div class="card my-4" ng-show="nodeInfo">
+                <div class="card-header">Node Information</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <form>
+                            <dl class="row">
+                                <dt class="col-sm-2">Network:</dt>
+                                <dd class="col-sm-10">{{ nodeInfo.network }}</dd>
+                                <dt class="col-sm-2">Workers:</dt>
+                                <dd class="col-sm-10">{{ nodeInfo.workerCount }}</dd>
+                            </dl>
+                            <label for="userPairingCode">Pairing code for users:</label>
+                            <div class="input-group mb-4">
+                                <input type="text" id="userPairingCode" class="form-control" readonly value="{{ nodeInfo.userPairingCode }}" />
+                                <div class="input-group-append">
+                                    <a href="{{ nodeInfo.protocol + ':' + nodeInfo.userPairingCode }}" class="btn btn-primary" role="button">Add bot</a>
+                                </div>
+                            </div>
+
+                            <label for="workerPairingCode">Pairing code for worker nodes:</label>
+                            <input type="text" id="workerPairingCode" class="form-control" readonly value="{{ nodeInfo.workerPairingCode }}" />
+
+                        </form>
+                    </p>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -65,6 +92,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="/app/app.js"></script>
     <script src="/app/services/DappService.js"></script>
+    <script src="/app/services/NodeService.js"></script>
     <script src="/app/controllers/DappController.js"></script>
 
 </body>

@@ -2,9 +2,17 @@
 
     var app = angular.module("dapp");
 
-    app.controller("DappController", ["$scope", "DappService", function($scope, DappService) {
+    app.controller("DappController", ["$scope", "DappService", "NodeService", function($scope, DappService, NodeService) {
         $scope.unit = "";
         $scope.running = false;
+
+        function fetchNodeInfo() {
+            NodeService.node().then(function(nodeInfo) {
+                $scope.nodeInfo = nodeInfo;
+            }, function(error) {
+                console.error("Failed to retrieve node info: " + error.message);
+            });
+        }
 
         $scope.run = function() {
             $scope.running = true;
@@ -31,8 +39,9 @@
             });
         };
 
-//        $scope.$watch("source", function(newVal, oldVal) {});
+        //        $scope.$watch("source", function(newVal, oldVal) {});
 
+        fetchNodeInfo();
     }]);
 
 })();

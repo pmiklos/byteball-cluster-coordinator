@@ -29,28 +29,28 @@ module.exports = function(coordinatorService) {
 
     function info(respond, message) {
         coordinatorService.info((err, result) => {
-            if (err) return respond(err.message);
+            if (err) return respond("Error: " + err.message);
             respond(result);
         });
     }
 
     function ping(respond, message) {
         coordinatorService.ping((err, result) => {
-            if (err) return respond(err.message);
+            if (err) return respond("Error: " + err.message);
             respond(result);
         });
     }
 
     function sum(respond, message) {
         coordinatorService.sum(message.args[0], message.args[1], (err, result) => {
-            if (err) return respond(err.message);
+            if (err) return respond("Error: " + err.message);
             respond("" + result);
         });
     }
 
     function dapp(respond, message) {
         coordinatorService.dapp(message.args[0], (err, result) => {
-            if (err) return respond(err.message);
+            if (err) return respond("Error: " + err.message);
             respond(JSON.stringify(result));
         });
     }

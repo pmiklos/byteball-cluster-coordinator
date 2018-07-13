@@ -9,11 +9,15 @@ module.exports = function(coordinator) {
         };
     }
 
-    function info(callback) {
+    function getWorkerCount() {
         let workerCount = 0;
         coordinator.forEachWorker((worker) => workerCount++);
+        return workerCount;
+    }
+
+    function info(callback) {
         callback(null, `Cluster state
-workers: ${workerCount}
+workers: ${getWorkerCount()}
 `);
     }
 
@@ -43,6 +47,7 @@ workers: ${workerCount}
         info: info,
         ping: ping,
         sum: sum,
-        dapp: dapp
+        dapp: dapp,
+        getWorkerCount: getWorkerCount
     };
 };

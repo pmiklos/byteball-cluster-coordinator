@@ -9,7 +9,8 @@ const headlessWallet = require('headless-byteball');
 const cluster = require("byteball-cluster");
 const conversation = require('./server/conversation.js');
 const repository = require("./server/repository.js");
-const restApi = require("./server/restApi.js");
+const dappApi = require("./server/dappApi.js");
+const nodeApi = require("./server/nodeApi.js");
 const service = require("./server/service.js");
 
 const webapp = express();
@@ -18,7 +19,8 @@ const httpHost = process.env.IP || "127.0.0.1";
 const coordinator = cluster.Coordinator;
 const coordinatorService = service(coordinator);
 const coordinatorChat = conversation(coordinatorService);
-const coordinatorRestApi = restApi(coordinatorService)
+const coordinatorDappApi = dappApi(coordinatorService);
+const coordinatorNodeApi = nodeApi(coordinatorService);
 const jsonContent = (text) => text.match(/\{.*\}/);
 const notJsonContent = (text) => !jsonContent(text);
 
@@ -34,7 +36,8 @@ function when(predicate, delegate) {
 webapp.use(express.static(path.resolve(__dirname, 'client')));
 webapp.use(bodyParser.urlencoded({ extended: true }));
 webapp.use(bodyParser.json());
-webapp.use('/api', coordinatorRestApi);
+webapp.use('/api', coordinatorDappApi);
+webapp.use('/api', coordinatorNodeApi);
 
 
 repository.insertPairingSecret('worker', () => {});
