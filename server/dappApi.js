@@ -43,7 +43,7 @@ module.exports = function(coordinatorService) {
                 });
             }
             res.header('Content-Type', 'text/plain');
-            res.send(result);
+            res.send('' + result);
         });
     });
 
@@ -59,7 +59,7 @@ module.exports = function(coordinatorService) {
             }
 
             res.header('Content-Type', 'text/plain');
-            res.send(source);
+            res.send('' + source);
         });
     });
 
