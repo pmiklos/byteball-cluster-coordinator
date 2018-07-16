@@ -19,14 +19,30 @@
             <div class="card">
                 <div class="card-featured"></div>
                 <div class="card-body">
-                    <form>
+                    <form name="dappForm" novalidate>
                         <div class="form-group">
                             <label for="unit">DApp unit hash</label>
-                            <input id="unit" type="text" class="form-control" ng-model="unit" aria-describedby="unitHelp" placeholder="Enter unit hash">
+                            <input id="unit" type="text" class="form-control" ng-model="unit" aria-describedby="unitHelp" required placeholder="Enter unit hash">
                             <small id="unitHelp" class="form-text text-muted">The Byteball unit hash of the DApp code to execute</small>
                         </div>
-                        <button type="submit" ng-click="run()" class="btn btn-primary" ng-disabled="running || !unit">Run</button>
+
+                        <div ng-repeat="param in params track by param.name">
+                            <div class="form-row">
+                                <div class="form-group col-lg-3 col-sm-12">
+                                    <input type="text" ng-model="param.name" ng-maxlength="20" required ng-required="true" class="form-control" placeholder="Name">
+                                </div>
+                                <div class="form-group col-lg-3 col-sm-12">
+                                    <input type="text" ng-model="param.value" ng-maxlength="100" required ng-required="true" class="form-control" placeholder="Value">
+                                </div>
+                                <div class="col-lg-2">
+                                    <button type="submit" ng-click="deleteParam(param.name)" class="btn btn-primary">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" ng-click="run()" class="btn btn-primary" ng-disabled="running || dappForm.$invalid">Run</button>
                         <button type="submit" ng-click="getDappSource()" class="btn" ng-disabled="!unit">Source</button>
+                        <button type="submit" ng-click="addParam()" class="btn" ng-disabled="dappForm.$invalid">Add param</button>
                     </form>
                 </div>
                 <div class="card-body bg-dark text-white" ng-show="result">
@@ -50,10 +66,16 @@
             <div class="card">
                 <div class="card-header">Examples</div>
                 <div class="card-body">
-                    <p class="card-text">
-                        Answer to the Ultimate Question of Life, the Universe, and Everything
-                    </p>
-                    <a ng-class="card-link" ng-href="#" ng-click="unit='wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng='">wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng=</a>
+                    <ul class="card-text">
+                        <li>
+                            Answer to the Ultimate Question of Life, the Universe, and Everything<br>
+                            <a ng-class="card-link" ng-href="#" ng-click="unit='wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng='">wJEV6k+WJ5vI0lolUe4CbqrMH8HnuBaaNqMI4E/R1ng=</a>
+                        </li>
+                        <li>
+                            Sum up two numbers. It takes two numeric parameters: 'a' and 'b'.
+                            <a ng-class="card-link" ng-href="#" ng-click="unit='WILeXE/GEWWP1lJ0vk9yqMhi7AjfGqeR+tVjXmG87a0='">WILeXE/GEWWP1lJ0vk9yqMhi7AjfGqeR+tVjXmG87a0=</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             <div class="card my-4">
@@ -80,9 +102,7 @@
                         </form>
                     </p>
                     <p class="card-text">
-                        Worker nodes are Byteball <a href="https://github.com/pmiklos/byteball-cluster-dapp-runner" target="_blank">DApp Runner</a>
-                        chat bots that connect to a <a href="https://github.com/pmiklos/byteball-cluster-coordinator" target="_blank">DApp Coordinator</a>
-                        bot using the above pairing code.
+                        Worker nodes are Byteball <a href="https://github.com/pmiklos/byteball-cluster-dapp-runner" target="_blank">DApp Runner</a> chat bots that connect to a <a href="https://github.com/pmiklos/byteball-cluster-coordinator" target="_blank">DApp Coordinator</a>                        bot using the above pairing code.
                     </p>
                 </div>
             </div>

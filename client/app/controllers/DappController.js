@@ -4,6 +4,7 @@
 
     app.controller("DappController", ["$scope", "DappService", "NodeService", function($scope, DappService, NodeService) {
         $scope.unit = "";
+        $scope.params = [];
         $scope.running = false;
 
         function fetchNodeInfo() {
@@ -16,7 +17,7 @@
 
         $scope.run = function() {
             $scope.running = true;
-            DappService.dapp($scope.unit).then(function(result) {
+            DappService.dapp($scope.unit, $scope.params).then(function(result) {
                 $scope.running = false;
                 $scope.result = result;
                 $scope.error = "";
@@ -28,7 +29,7 @@
         };
 
         $scope.getDappUrl = function() {
-            return "/api/dapp/" + encodeURIComponent($scope.unit);
+            return DappService.getDappUrl($scope.unit, $scope.params);
         };
 
         $scope.getDappSource = function() {
@@ -37,6 +38,18 @@
             }, function(error) {
                 console.error(error);
             });
+        };
+
+        $scope.addParam = function() {
+            $scope.params.push({
+                name: "",
+                value: ""
+            });
+        };
+
+        $scope.deleteParam = function(name) {
+            let idx = $scope.params.findIndex(function(param) { return param.name == name });
+            delete $scope.params.splice(idx, 1);
         };
 
         //        $scope.$watch("source", function(newVal, oldVal) {});

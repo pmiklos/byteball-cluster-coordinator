@@ -34,8 +34,9 @@ module.exports = function(coordinatorService) {
 
     router.get("/dapp/:unit", function(req, res) {
         let unit = req.params.unit;
+        let params = req.query;
 
-        coordinatorService.dapp(unit, (err, result) => {
+        coordinatorService.dapp(unit, params, (err, result) => {
             if (err) {
                 return res.status(500).send({
                     message: "DApp execution failed",
@@ -65,6 +66,7 @@ module.exports = function(coordinatorService) {
 
     router.post('/dapp', function(req, res) {
         let unit = req.body.unit;
+        let params = req.body.params;
 
         console.error("dapp: " + unit);
         if (!unit) {
@@ -73,7 +75,7 @@ module.exports = function(coordinatorService) {
             });
         }
 
-        coordinatorService.dapp(unit, (err, result) => {
+        coordinatorService.dapp(unit, params, (err, result) => {
             if (err) {
                 return res.status(500).send({
                     message: "dApp execution failed",

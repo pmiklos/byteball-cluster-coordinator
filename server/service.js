@@ -35,10 +35,11 @@ workers: ${getWorkerCount()}
         }, returnResult(callback));
     }
 
-    function dapp(unit, callback) {
+    function dapp(unit, params, callback) {
         coordinator.sendAll({
             method: "dapp",
-            unit: unit
+            unit: unit,
+            params: params
         }, returnResult(callback));
     }
 

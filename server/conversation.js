@@ -49,7 +49,8 @@ module.exports = function(coordinatorService) {
     }
 
     function dapp(respond, message) {
-        coordinatorService.dapp(message.args[0], (err, result) => {
+        let params = {}; // TODO
+        coordinatorService.dapp(message.args[0], params, (err, result) => {
             if (err) return respond("Error: " + err.message);
             respond(JSON.stringify(result));
         });
